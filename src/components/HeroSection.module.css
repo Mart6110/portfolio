@@ -1,0 +1,113 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: calc(var(--header-height) + 32px) 24px 64px;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.greeting {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+
+.headline {
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--text);
+  max-width: 900px;
+  margin-bottom: 24px;
+}
+
+.intro {
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin-bottom: 36px;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 48px;
+}
+
+.primaryButton,
+.secondaryButton {
+  border-radius: var(--radius-sm);
+  padding: 13px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, filter 0.15s ease;
+}
+
+.primaryButton {
+  background: var(--accent-gradient);
+  color: var(--accent-gradient-contrast);
+}
+
+.primaryButton:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.secondaryButton {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.secondaryButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.contactList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  list-style: none;
+}
+
+.contactList li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.contactList a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.15s ease;
+}
+
+.contactList a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: calc(var(--header-height) + 24px) 20px 48px;
+  }
+}
