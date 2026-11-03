@@ -5,6 +5,8 @@ export interface Project {
   tech: string[];
   category: "fullstack" | "frontend" | "ai" | "mobile";
   repoUrl: string;
+  /** For projects split into two repositories: repoUrl is then the frontend, this the backend. */
+  apiRepoUrl?: string;
   demoUrl?: string;
   /** Projects with a screenshot are also shown large in the Featured list. Files live in /public. */
   screenshot?: {
@@ -15,6 +17,27 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "tally",
+    title: "Tally",
+    description: {
+      en: "Split shared bills with friends. Expenses are divided equally, by exact amounts, by percentage or by shares and always add up to the cent, and a dynamic program finds the fewest payments that settle the group. Email invites and notifications, a Go API on PostgreSQL and a Next.js frontend.",
+      da: "Del fælles udgifter med venner. Udgifter fordeles ligeligt, med faste beløb, i procent eller i andele og går altid op til øret, og et dynamisk program finder det mindste antal betalinger, der gør gruppen kvit. Invitationer og notifikationer på e-mail, et Go-API på PostgreSQL og et Next.js-frontend.",
+    },
+    tech: ["Go", "PostgreSQL", "Supabase", "Next.js", "TypeScript", "Redux Toolkit", "SmoothUI"],
+    category: "fullstack",
+    repoUrl: "https://github.com/Mart6110/tally-web",
+    apiRepoUrl: "https://github.com/Mart6110/tally-api",
+    demoUrl: "https://tally.bymartinus.dev/",
+    screenshot: {
+      light: "/projects/tally-light.webp",
+      dark: "/projects/tally-dark.webp",
+      alt: {
+        en: "Tally showing a demo group, Weekend in Lisbon: the list of expenses with what you lent or borrowed on each, and beside it everyone's balance and the three payments that settle the group.",
+        da: "Tally med en demogruppe, Weekend in Lisbon: listen over udgifter med hvad du har lagt ud eller lånt på hver, og ved siden af alles saldo og de tre betalinger, der gør gruppen kvit.",
+      },
+    },
+  },
   {
     slug: "ark",
     title: "Ark",
