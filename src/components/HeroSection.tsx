@@ -111,7 +111,7 @@ export default function HeroSection({ ready }: { ready: boolean }) {
             <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">{t.hero.intro}</p>
 
             <div className="mt-10 flex flex-wrap gap-3">
-              <SmoothButton asChild size="lg" variant="candy">
+              <SmoothButton asChild color="accent" size="lg" variant="solid">
                 <a href="#projects">
                   {t.hero.ctaWork}
                   <ArrowRightIcon />
