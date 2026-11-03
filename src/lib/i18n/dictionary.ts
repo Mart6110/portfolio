@@ -44,6 +44,7 @@ export interface Dictionary {
     contact: string;
   };
   hero: {
+    status: string;
     greeting: string;
     intro: string;
     ctaWork: string;
@@ -55,10 +56,13 @@ export interface Dictionary {
   skillCategories: SkillCategory[];
   projectsTitle: string;
   projectsSubtitle: string;
+  projectsFeatured: string;
+  projectsAll: string;
   projectFilters: {
     all: string;
     fullstack: string;
     frontend: string;
+    ai: string;
     mobile: string;
   };
   projectLinks: {
@@ -72,10 +76,15 @@ export interface Dictionary {
   contact: {
     title: string;
     subtitle: string;
+    emailCta: string;
   };
-  langToggle: {
-    en: string;
-    da: string;
+  ui: {
+    menu: string;
+    language: string;
+    theme: string;
+  };
+  footer: {
+    builtWith: string;
   };
 }
 
@@ -98,6 +107,7 @@ const en: Dictionary = {
     contact: "Contact",
   },
   hero: {
+    status: "Open to new opportunities",
     greeting: "Hi, I'm Martinus",
     intro:
       "A full-stack software developer based in Ringsted, Denmark, building web and industrial IoT applications with React, Go, and PostgreSQL.",
@@ -149,11 +159,15 @@ const en: Dictionary = {
     },
   ],
   projectsTitle: "Projects",
-  projectsSubtitle: "A few things I've built, from full-stack apps to dashboards and mobile apps.",
+  projectsSubtitle:
+    "Recent things I've built, from a browser word processor and an AI assistant to dashboards and a mobile app.",
+  projectsFeatured: "Featured",
+  projectsAll: "All projects",
   projectFilters: {
     all: "All",
     fullstack: "Full-Stack",
     frontend: "Frontend",
+    ai: "AI",
     mobile: "Mobile",
   },
   projectLinks: {
@@ -214,8 +228,16 @@ const en: Dictionary = {
   contact: {
     title: "Let's get in touch",
     subtitle: "Open to new opportunities and interesting projects — feel free to reach out.",
+    emailCta: "Send me an email",
   },
-  langToggle: { en: "English", da: "Dansk" },
+  ui: {
+    menu: "Menu",
+    language: "Language",
+    theme: "Theme",
+  },
+  footer: {
+    builtWith: "Built with Next.js and SmoothUI",
+  },
 };
 
 const da: Dictionary = {
@@ -237,6 +259,7 @@ const da: Dictionary = {
     contact: "Kontakt",
   },
   hero: {
+    status: "Åben for nye muligheder",
     greeting: "Hej, jeg er Martinus",
     intro:
       "Fullstack-softwareudvikler baseret i Ringsted, der bygger web- og industrielle IoT-løsninger med React, Go og PostgreSQL.",
@@ -288,11 +311,15 @@ const da: Dictionary = {
     },
   ],
   projectsTitle: "Projekter",
-  projectsSubtitle: "Et udpluk af ting jeg har bygget — fra fullstack-apps til dashboards og mobilapps.",
+  projectsSubtitle:
+    "Nyere ting jeg har bygget — fra en tekstbehandler i browseren og en AI-assistent til dashboards og en mobilapp.",
+  projectsFeatured: "Udvalgte",
+  projectsAll: "Alle projekter",
   projectFilters: {
     all: "Alle",
     fullstack: "Fullstack",
     frontend: "Frontend",
+    ai: "AI",
     mobile: "Mobil",
   },
   projectLinks: {
@@ -353,8 +380,16 @@ const da: Dictionary = {
   contact: {
     title: "Lad os komme i kontakt",
     subtitle: "Åben for nye muligheder og spændende projekter — skriv endelig til mig.",
+    emailCta: "Send mig en mail",
   },
-  langToggle: { en: "English", da: "Dansk" },
+  ui: {
+    menu: "Menu",
+    language: "Sprog",
+    theme: "Tema",
+  },
+  footer: {
+    builtWith: "Bygget med Next.js og SmoothUI",
+  },
 };
 
 export const dictionaries: Record<Locale, Dictionary> = { en, da };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import styles from "./CodeGlobe.module.css";
+import { cn } from "@/lib/utils";
 
 const WORDS = [
   "React", "Angular", "TypeScript", "JavaScript", "Go", "C#", "PostgreSQL", "MySQL", "Redux",
@@ -50,7 +50,7 @@ function buildPoints(): Point[] {
   return points;
 }
 
-export default function CodeGlobe() {
+export default function CodeGlobe({ className }: { className?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -72,19 +72,13 @@ export default function CodeGlobe() {
     let frame = 0;
     let alphaScale = 1;
     let visiblePoints: Point[] = [];
-    let accent = { r: 234, g: 88, b: 12 };
+    let accent = "#f97316";
 
     const allPoints = buildPoints();
 
     const readAccent = () => {
-      const raw = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
-      const clean = raw.replace("#", "");
-      if (clean.length !== 6) return;
-      accent = {
-        r: parseInt(clean.slice(0, 2), 16),
-        g: parseInt(clean.slice(2, 4), 16),
-        b: parseInt(clean.slice(4, 6), 16),
-      };
+      const raw = getComputedStyle(document.documentElement).getPropertyValue("--brand").trim();
+      if (raw) accent = raw;
     };
 
     const resize = () => {
@@ -126,7 +120,7 @@ export default function CodeGlobe() {
       ctx.clearRect(0, 0, width, height);
       const cosA = Math.cos(rotation);
       const sinA = Math.sin(rotation);
-      const { r, g, b } = accent;
+      ctx.fillStyle = accent;
 
       const projected = visiblePoints
         .map((p) => {
@@ -138,10 +132,11 @@ export default function CodeGlobe() {
       for (const p of projected) {
         const alpha = (0.12 + p.depth * 0.8) * alphaScale;
         const fontSize = FONT_SIZE_BASE * (0.55 + p.depth * 0.6);
-        ctx.font = `${fontSize}px ui-monospace, "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace`;
-        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        ctx.font = `${fontSize}px ${FONT_STACK}`;
+        ctx.globalAlpha = alpha;
         ctx.fillText(p.word, p.sx, p.sy);
       }
+      ctx.globalAlpha = 1;
     };
 
     const loop = (time: number) => {
@@ -187,5 +182,5 @@ export default function CodeGlobe() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className={styles.canvas} aria-hidden="true" />;
+  return <canvas ref={canvasRef} className={cn("absolute inset-0 z-0", className)} aria-hidden="true" />;
 }
