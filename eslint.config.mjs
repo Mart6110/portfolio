@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored from the SmoothUI registry; `shadcn add` overwrites local edits.
+    "src/components/smoothui/**",
   ]),
 ]);
 
