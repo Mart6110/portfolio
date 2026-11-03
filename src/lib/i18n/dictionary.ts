@@ -166,7 +166,7 @@ const en: Dictionary = {
   ],
   projectsTitle: "Projects",
   projectsSubtitle:
-    "Recent things I've built, from a browser word processor and an AI assistant to dashboards and a mobile app.",
+    "Recent things I've built, from a browser word processor and an AI assistant to dashboards and an app for splitting expenses.",
   projectsFeatured: "Featured",
   projectInDevelopment: "In development",
   projectsAll: "All projects",
@@ -323,7 +323,7 @@ const da: Dictionary = {
   ],
   projectsTitle: "Projekter",
   projectsSubtitle:
-    "Nyere ting jeg har bygget — fra en tekstbehandler i browseren og en AI-assistent til dashboards og en mobilapp.",
+    "Nyere ting jeg har bygget — fra en tekstbehandler i browseren og en AI-assistent til dashboards og en app til at dele udgifter.",
   projectsFeatured: "Udvalgte",
   projectInDevelopment: "Under udvikling",
   projectsAll: "Alle projekter",

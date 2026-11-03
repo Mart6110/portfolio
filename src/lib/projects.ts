@@ -115,15 +115,4 @@ export const projects: Project[] = [
     category: "frontend",
     repoUrl: "https://github.com/Mart6110/Sand-battery-frontend",
   },
-  {
-    slug: "sports-app",
-    title: "Sports App",
-    description: {
-      en: "A workout and run-tracking app: build routines and programs, log sessions, and track runs with GPS. A Go REST API with MongoDB behind a React Native (Expo) app.",
-      da: "En trænings- og løbeapp: opbyg rutiner og programmer, log træningspas og følg løbeture med GPS. Et Go REST API med MongoDB bag en React Native-app (Expo).",
-    },
-    tech: ["Go", "MongoDB", "React Native", "Expo", "TypeScript", "Docker"],
-    category: "mobile",
-    repoUrl: "https://github.com/Mart6110/projects/tree/main/sports-app",
-  },
 ];

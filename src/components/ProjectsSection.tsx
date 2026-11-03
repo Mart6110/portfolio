@@ -17,7 +17,10 @@ import Section from "./Section";
 
 type Filter = "all" | Project["category"];
 
-const FILTERS: Filter[] = ["all", "frontend", "fullstack", "ai", "mobile"];
+/** Tabs for categories without projects are left out, so a category can be empty for a while. */
+const FILTERS = (["all", "frontend", "fullstack", "ai", "mobile"] satisfies Filter[]).filter(
+  (key) => key === "all" || projects.some((project) => project.category === key)
+);
 
 /**
  * Live demo first (what most visitors want), then the code, styled as one group wherever a
