@@ -96,8 +96,10 @@
     --secondary-foreground: oklch(0.47 0 0);
     --muted: oklch(0.945 0 0);
     --muted-foreground: oklch(0.56 0 0);
-    --accent: oklch(0.75 0.17 47.65);
-    --accent-foreground: oklch(1 0 0);
+    /* shadcn's accent is the highlight behind hovered/focused menu items, so it stays a light
+       tint with normal text; the orange itself is --brand. */
+    --accent: color-mix(in oklab, var(--brand) 14%, var(--popover));
+    --accent-foreground: var(--foreground);
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.91 0 0);
     --input: oklch(0.66 0 0);
@@ -161,8 +163,8 @@
     --secondary-foreground: oklch(0.74 0 0);
     --muted: oklch(0.275 0 0);
     --muted-foreground: oklch(0.66 0 0);
-    --accent: oklch(0.75 0.17 47.65);
-    --accent-foreground: oklch(1 0 0);
+    --accent: color-mix(in oklab, var(--brand) 18%, var(--popover));
+    --accent-foreground: var(--foreground);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(0.315 0 0);
     --input: oklch(0.55 0 0);

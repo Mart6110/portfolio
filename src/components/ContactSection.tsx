@@ -1,14 +1,44 @@
 "use client";
 
-import { MailIcon } from "lucide-react";
+import { ChevronDownIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import ButtonCopy from "@/components/smoothui/button-copy";
+import DropdownMenu from "@/components/smoothui/dropdown-menu";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import Reveal from "./Reveal";
 
+// Compose pages for the two big webmail services. A bare mailto: link does nothing on a
+// computer with no mail app set up, which is common for people who use webmail.
+const gmailComposeUrl = (to: string) => `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}`;
+const outlookComposeUrl = (to: string) =>
+  `https://outlook.live.com/mail/0/deeplink/compose?to=${encodeURIComponent(to)}`;
+
+function openInNewTab(url: string) {
+  window.open(url, "_blank", "noopener,noreferrer");
+}
+
 export default function ContactSection() {
   const { t } = useLanguage();
+
+  const emailOptions = [
+    { key: "via", label: t.contact.emailVia, groupLabel: t.contact.emailVia },
+    { key: "gmail", label: "Gmail", icon: <ExternalLinkIcon />, onSelect: () => openInNewTab(gmailComposeUrl(t.email)) },
+    {
+      key: "outlook",
+      label: "Outlook",
+      icon: <ExternalLinkIcon />,
+      onSelect: () => openInNewTab(outlookComposeUrl(t.email)),
+    },
+    {
+      key: "app",
+      label: t.contact.emailApp,
+      icon: <MailIcon />,
+      onSelect: () => {
+        window.location.href = `mailto:${t.email}`;
+      },
+    },
+  ];
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="px-4 py-20 sm:px-6 md:py-28">
@@ -31,12 +61,13 @@ export default function ContactSection() {
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-3">
-            <SmoothButton asChild size="lg" variant="candy">
-              <a href={`mailto:${t.email}`}>
+            <DropdownMenu align="center" className="min-w-52" items={emailOptions} sideOffset={8}>
+              <SmoothButton size="lg" variant="candy">
                 <MailIcon />
                 {t.contact.emailCta}
-              </a>
-            </SmoothButton>
+                <ChevronDownIcon />
+              </SmoothButton>
+            </DropdownMenu>
             <ButtonCopy onCopy={() => navigator.clipboard.writeText(t.email)} />
           </div>
           <p className="mt-4 font-mono text-muted-foreground text-sm">{t.email}</p>
