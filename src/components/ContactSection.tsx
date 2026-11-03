@@ -62,7 +62,7 @@ export default function ContactSection() {
 
           <div className="mt-10 flex items-center justify-center gap-3">
             <DropdownMenu align="center" className="min-w-52" items={emailOptions} sideOffset={8}>
-              <SmoothButton size="lg" variant="candy">
+              <SmoothButton color="accent" size="lg" variant="solid">
                 <MailIcon />
                 {t.contact.emailCta}
                 <ChevronDownIcon />
