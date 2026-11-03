@@ -4,11 +4,12 @@ import { Fragment } from "react";
 import { ArrowRightIcon, MailIcon } from "lucide-react";
 import Badge, { StatusDot } from "@/components/smoothui/badge";
 import ParallaxLayers from "@/components/smoothui/parallax-layers";
+import PixelFlowField from "@/components/smoothui/pixel-flow-field";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import SoftBlurIn from "@/components/smoothui/soft-blur-in";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
+import { useTheme } from "@/lib/theme/ThemeContext";
 import { GithubIcon, LinkedinIcon } from "./icons";
-import CodeGlobe from "./CodeGlobe";
 import Reveal from "./Reveal";
 
 const HEADLINE_DELAY_MS = 150;
@@ -41,37 +42,43 @@ function AnimatedHeadline({ text, ready }: { text: string; ready: boolean }) {
   });
 }
 
-// Background layers, back to front. Deeper layers drift further as the hero scrolls away.
+// Background glows, back to front. Deeper layers drift further as the hero scrolls away.
 const PARALLAX_LAYERS = [
   {
-    id: "dots",
-    depth: 0.15,
+    id: "glow-text",
+    depth: 0.3,
     content: (
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(var(--color-border)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:radial-gradient(ellipse_70%_60%_at_30%_40%,#000,transparent_75%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_20%,color-mix(in_oklab,var(--color-brand)_14%,transparent),transparent_70%)]"
       />
     ),
   },
   {
-    id: "glow",
-    depth: 0.45,
+    id: "glow-field",
+    depth: 0.8,
     content: (
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_15%_20%,color-mix(in_oklab,var(--color-brand)_14%,transparent),transparent_70%),radial-gradient(circle_at_85%_45%,color-mix(in_oklab,var(--color-brand)_10%,transparent),transparent_40%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_78%_50%,color-mix(in_oklab,var(--color-brand)_12%,transparent),transparent_38%)]"
       />
     ),
-  },
-  {
-    id: "globe",
-    depth: 1,
-    content: <CodeGlobe className="lg:[mask-image:linear-gradient(to_right,transparent_38%,#000_62%)]" />,
   },
 ];
 
+const FIELD_WORD = "</>";
+
+// Ramp stops dim → bright: drifting field, word edges, word core. The field reads its colours
+// only when these strings change, so each theme gets its own token names; that also lets the
+// field grey be tuned per theme.
+const FIELD_COLORS = {
+  light: ["--color-smooth-500", "--color-brand", "--color-brand-strong"],
+  dark: ["--color-smooth-700", "--color-brand", "--color-brand-light"],
+};
+
 export default function HeroSection({ ready }: { ready: boolean }) {
   const { t, locale } = useLanguage();
+  const { theme } = useTheme();
 
   const contactLinks = [
     { icon: <MailIcon className="size-4" />, label: t.email, href: `mailto:${t.email}`, external: false },
@@ -83,53 +90,65 @@ export default function HeroSection({ ready }: { ready: boolean }) {
     <section id="hero" className="relative flex min-h-dvh items-center overflow-hidden px-4 pt-28 pb-16 sm:px-6">
       <ParallaxLayers className="pointer-events-none absolute inset-0" layers={PARALLAX_LAYERS} range={140} />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl">
-        <Reveal ready={ready}>
-          <Badge className="mb-8 h-7 gap-2 bg-background/70 px-3 backdrop-blur-sm" variant="outline">
-            <StatusDot pulse size="sm" status="online" />
-            {t.hero.status}
-          </Badge>
-          <p className="mb-3 font-medium text-brand-strong text-lg">{t.hero.greeting}</p>
-        </Reveal>
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-10 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-6">
+          <Reveal ready={ready}>
+            <Badge className="mb-8 h-7 gap-2 bg-background/70 px-3 backdrop-blur-sm" variant="outline">
+              <StatusDot pulse size="sm" status="online" />
+              {t.hero.status}
+            </Badge>
+            <p className="mb-3 font-medium text-brand-strong text-lg">{t.hero.greeting}</p>
+          </Reveal>
 
-        <h1 className="max-w-4xl font-extrabold text-[2.5rem] leading-[1.05] tracking-tight min-[400px]:text-5xl sm:text-6xl lg:text-7xl">
-          <span className="sr-only">{t.role}</span>
-          <span aria-hidden="true">
-            <AnimatedHeadline key={locale} ready={ready} text={t.role} />
-          </span>
-        </h1>
+          <h1 className="max-w-4xl font-extrabold text-[2.5rem] leading-[1.05] tracking-tight min-[400px]:text-5xl sm:text-6xl lg:text-7xl">
+            <span className="sr-only">{t.role}</span>
+            <span aria-hidden="true">
+              <AnimatedHeadline key={locale} ready={ready} text={t.role} />
+            </span>
+          </h1>
 
-        <Reveal delay={0.25} ready={ready}>
-          <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">{t.hero.intro}</p>
+          <Reveal delay={0.25} ready={ready}>
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">{t.hero.intro}</p>
 
-          <div className="mt-10 flex flex-wrap gap-3">
-            <SmoothButton asChild size="lg" variant="candy">
-              <a href="#projects">
-                {t.hero.ctaWork}
-                <ArrowRightIcon />
-              </a>
-            </SmoothButton>
-            <SmoothButton asChild size="lg" variant="outline">
-              <a href="#contact">{t.hero.ctaContact}</a>
-            </SmoothButton>
-          </div>
-
-          <ul className="mt-12 flex flex-wrap gap-x-7 gap-y-3 text-muted-foreground text-sm">
-            {contactLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  className="flex items-center gap-2 rounded-sm outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring"
-                  href={link.href}
-                  rel={link.external ? "noreferrer" : undefined}
-                  target={link.external ? "_blank" : undefined}
-                >
-                  {link.icon}
-                  {link.label}
+            <div className="mt-10 flex flex-wrap gap-3">
+              <SmoothButton asChild size="lg" variant="candy">
+                <a href="#projects">
+                  {t.hero.ctaWork}
+                  <ArrowRightIcon />
                 </a>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
+              </SmoothButton>
+              <SmoothButton asChild size="lg" variant="outline">
+                <a href="#contact">{t.hero.ctaContact}</a>
+              </SmoothButton>
+            </div>
+
+            <ul className="mt-12 flex flex-wrap gap-x-7 gap-y-3 text-muted-foreground text-sm">
+              {contactLinks.map((link) => (
+                <li key={link.href}>
+                  <a
+                    className="flex items-center gap-2 rounded-sm outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring"
+                    href={link.href}
+                    rel={link.external ? "noreferrer" : undefined}
+                    target={link.external ? "_blank" : undefined}
+                  >
+                    {link.icon}
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        </div>
+
+        {/* Paused until the preloader lifts: the field assembles the first time it runs.
+            On wide screens it grows into the page margin by up to 7rem, never past the viewport,
+            and its height is capped so it still fits on short laptop screens. */}
+        <PixelFlowField
+          className="h-80 w-full [mask-image:radial-gradient(closest-side,#000_70%,transparent)] sm:h-[26rem] md:h-[30rem] lg:col-span-6 lg:aspect-square lg:h-auto lg:max-h-[calc(100dvh-11rem)] lg:w-[calc(100%_+_clamp(0px,_(100vw_-_72rem)_/_2_-_1rem,_7rem))]"
+          colors={FIELD_COLORS[theme]}
+          paused={!ready}
+          text={FIELD_WORD}
+        />
       </div>
     </section>
   );

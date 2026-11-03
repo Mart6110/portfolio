@@ -77,6 +77,8 @@ export interface Dictionary {
     title: string;
     subtitle: string;
     emailCta: string;
+    emailVia: string;
+    emailApp: string;
   };
   ui: {
     menu: string;
@@ -229,6 +231,8 @@ const en: Dictionary = {
     title: "Let's get in touch",
     subtitle: "Open to new opportunities and interesting projects — feel free to reach out.",
     emailCta: "Send me an email",
+    emailVia: "Write with",
+    emailApp: "Your mail app",
   },
   ui: {
     menu: "Menu",
@@ -381,6 +385,8 @@ const da: Dictionary = {
     title: "Lad os komme i kontakt",
     subtitle: "Åben for nye muligheder og spændende projekter — skriv endelig til mig.",
     emailCta: "Send mig en mail",
+    emailVia: "Skriv med",
+    emailApp: "Dit mailprogram",
   },
   ui: {
     menu: "Menu",

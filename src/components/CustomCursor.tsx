@@ -4,7 +4,8 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 
 const FINE_POINTER_QUERY = "(hover: hover) and (pointer: fine)";
-const INTERACTIVE_SELECTOR = "a, button, [role='button'], [role='tab'], input, select, textarea, label";
+const INTERACTIVE_SELECTOR =
+  "a, button, [role='button'], [role='tab'], [role='menuitem'], input, select, textarea, label";
 const RING_SPRING = { damping: 30, mass: 0.4, stiffness: 420 };
 const STATE_SPRING = { bounce: 0.1, duration: 0.25, type: "spring" as const };
 const CURSOR_CLASS = "custom-cursor";

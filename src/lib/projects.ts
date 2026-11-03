@@ -25,6 +25,7 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "Tiptap", "Tailwind CSS", "SmoothUI", "Vite"],
     category: "frontend",
     repoUrl: "https://github.com/Mart6110/Ark",
+    demoUrl: "https://ark.bymartinus.dev/",
     screenshot: {
       light: "/projects/ark-light.webp",
       dark: "/projects/ark-dark.webp",
@@ -55,6 +56,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "SmoothUI", "Recharts", "TanStack Query"],
     category: "frontend",
     repoUrl: "https://github.com/Mart6110/dashboard-creator",
+    demoUrl: "https://dashboardcreator.bymartinus.dev/",
     screenshot: {
       light: "/projects/dashboard-creator-light.webp",
       dark: "/projects/dashboard-creator-dark.webp",

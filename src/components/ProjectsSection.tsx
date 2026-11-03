@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type CSSProperties, type Ref } from "react";
-import { ArrowUpRightIcon } from "lucide-react";
+import { GlobeIcon } from "lucide-react";
 import Badge from "@/components/smoothui/badge";
 import GlowHover from "@/components/smoothui/glow-hover-card";
 import ScrollImageReveal from "@/components/smoothui/scroll-image-reveal";
@@ -18,6 +18,39 @@ import Section from "./Section";
 type Filter = "all" | Project["category"];
 
 const FILTERS: Filter[] = ["all", "frontend", "fullstack", "ai", "mobile"];
+
+/**
+ * Live demo first (what most visitors want), then the code, styled as one pair wherever a
+ * project is shown. The project name is in each link's aria-label rather than in hidden text
+ * inside the button, which would add flex gap.
+ */
+function ProjectLinks({ project, size }: { project: Project; size?: "sm" }) {
+  const { t } = useLanguage();
+
+  return (
+    <>
+      {project.demoUrl && (
+        <SmoothButton asChild color="accent" size={size} variant="solid">
+          <a
+            aria-label={`${t.projectLinks.demo}: ${project.title}`}
+            href={project.demoUrl}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <GlobeIcon />
+            {t.projectLinks.demo}
+          </a>
+        </SmoothButton>
+      )}
+      <SmoothButton asChild size={size} variant="outline">
+        <a aria-label={`${t.projectLinks.code}: ${project.title}`} href={project.repoUrl} rel="noreferrer" target="_blank">
+          <GithubIcon size={16} />
+          {t.projectLinks.code}
+        </a>
+      </SmoothButton>
+    </>
+  );
+}
 
 interface ProjectCardProps {
   project: Project;
@@ -55,22 +88,7 @@ function ProjectCard({ project, className, style, ref }: ProjectCardProps) {
         ))}
       </ul>
       <div className="mt-auto flex flex-wrap gap-2 pt-6">
-        <SmoothButton asChild size="sm" variant="outline">
-          <a href={project.repoUrl} rel="noreferrer" target="_blank">
-            <GithubIcon size={16} />
-            {t.projectLinks.code}
-            <span className="sr-only">: {project.title}</span>
-          </a>
-        </SmoothButton>
-        {project.demoUrl && (
-          <SmoothButton asChild size="sm" variant="ghost">
-            <a href={project.demoUrl} rel="noreferrer" target="_blank">
-              <ArrowUpRightIcon />
-              {t.projectLinks.demo}
-              <span className="sr-only">: {project.title}</span>
-            </a>
-          </SmoothButton>
-        )}
+        <ProjectLinks project={project} size="sm" />
       </div>
     </article>
   );
@@ -113,14 +131,9 @@ function FeaturedProjectRow({ project, flipped }: { project: FeaturedProject; fl
             </li>
           ))}
         </ul>
-        <SmoothButton asChild className="mt-8" variant="outline">
-          <a href={project.repoUrl} rel="noreferrer" target="_blank">
-            <GithubIcon size={16} />
-            {t.projectLinks.code}
-            <span className="sr-only">: {project.title}</span>
-            <ArrowUpRightIcon />
-          </a>
-        </SmoothButton>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <ProjectLinks project={project} />
+        </div>
       </Reveal>
     </article>
   );
