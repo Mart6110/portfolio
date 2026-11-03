@@ -8,6 +8,8 @@ export interface Project {
   /** For projects split into two repositories: repoUrl is then the frontend, this the backend. */
   apiRepoUrl?: string;
   demoUrl?: string;
+  /** Still being worked on: shows an "In development" badge next to the category. Remove it when done. */
+  inDevelopment?: boolean;
   /** Projects with a screenshot are also shown large in the Featured list. Files live in /public. */
   screenshot?: {
     light: string;
@@ -49,6 +51,7 @@ export const projects: Project[] = [
     category: "frontend",
     repoUrl: "https://github.com/Mart6110/Ark",
     demoUrl: "https://ark.bymartinus.dev/",
+    inDevelopment: true,
     screenshot: {
       light: "/projects/ark-light.webp",
       dark: "/projects/ark-dark.webp",
@@ -68,6 +71,7 @@ export const projects: Project[] = [
     tech: ["Python", "FastAPI", "pgvector", "Redis", "MCP", "OAuth", "Docker"],
     category: "ai",
     repoUrl: "https://github.com/Mart6110/company-assistant",
+    inDevelopment: true,
   },
   {
     slug: "dashboard-creator",

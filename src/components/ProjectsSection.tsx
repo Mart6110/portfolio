@@ -70,6 +70,18 @@ function ProjectLinks({ project, size }: { project: Project; size?: "sm" }) {
   );
 }
 
+/** A small, neutral marker for projects that are still being worked on. */
+function InDevelopmentBadge() {
+  const { t } = useLanguage();
+
+  return (
+    <Badge variant="outline">
+      <span aria-hidden="true" className="size-1.5 rounded-full bg-brand" />
+      {t.projectInDevelopment}
+    </Badge>
+  );
+}
+
 interface ProjectCardProps {
   project: Project;
   className?: string;
@@ -93,9 +105,12 @@ function ProjectCard({ project, className, style, ref }: ProjectCardProps) {
       )}
       style={style}
     >
-      <p className="mb-4 font-mono text-muted-foreground text-xs uppercase tracking-widest">
-        {t.projectFilters[project.category]}
-      </p>
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        <p className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
+          {t.projectFilters[project.category]}
+        </p>
+        {project.inDevelopment && <InDevelopmentBadge />}
+      </div>
       <h3 className="font-semibold text-xl tracking-tight">{project.title}</h3>
       <p className="mt-3 text-muted-foreground text-sm leading-relaxed">{project.description[locale]}</p>
       <ul className="mt-5 flex flex-wrap gap-1.5">
@@ -137,9 +152,12 @@ function FeaturedProjectRow({ project, flipped }: { project: FeaturedProject; fl
         />
       </div>
       <Reveal className="md:col-span-5">
-        <p className="mb-4 font-mono text-brand-strong text-xs uppercase tracking-widest">
-          {t.projectsFeatured} · {t.projectFilters[project.category]}
-        </p>
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <p className="font-mono text-brand-strong text-xs uppercase tracking-widest">
+            {t.projectsFeatured} · {t.projectFilters[project.category]}
+          </p>
+          {project.inDevelopment && <InDevelopmentBadge />}
+        </div>
         <h3 className="font-bold text-2xl tracking-tight md:text-3xl">{project.title}</h3>
         <p className="mt-4 text-muted-foreground leading-relaxed">{project.description[locale]}</p>
         <ul className="mt-6 flex flex-wrap gap-1.5">

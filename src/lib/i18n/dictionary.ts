@@ -57,6 +57,7 @@ export interface Dictionary {
   projectsTitle: string;
   projectsSubtitle: string;
   projectsFeatured: string;
+  projectInDevelopment: string;
   projectsAll: string;
   projectFilters: {
     all: string;
@@ -167,6 +168,7 @@ const en: Dictionary = {
   projectsSubtitle:
     "Recent things I've built, from a browser word processor and an AI assistant to dashboards and a mobile app.",
   projectsFeatured: "Featured",
+  projectInDevelopment: "In development",
   projectsAll: "All projects",
   projectFilters: {
     all: "All",
@@ -323,6 +325,7 @@ const da: Dictionary = {
   projectsSubtitle:
     "Nyere ting jeg har bygget — fra en tekstbehandler i browseren og en AI-assistent til dashboards og en mobilapp.",
   projectsFeatured: "Udvalgte",
+  projectInDevelopment: "Under udvikling",
   projectsAll: "Alle projekter",
   projectFilters: {
     all: "Alle",
