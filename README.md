@@ -24,7 +24,7 @@ Open http://localhost:3000. `npm run build` makes a production build and `npm ru
 | `src/components/HeroSection.tsx` | The hero: text on the left, SmoothUI's pixel flow field on the right (`FIELD_WORD` is the word it draws), glow layers behind |
 | `src/components/smoothui/` | SmoothUI components (see below) |
 
-To add a project, append it to `projects` in `src/lib/projects.ts`. The filter tabs and their counts follow from each project's `category`. A project with a `screenshot` (light and dark WebP files in `public/projects/`, 1440×900) is also shown large in the Featured list above the tabs.
+To add a project, append it to `projects` in `src/lib/projects.ts`. The filter tabs and their counts follow from each project's `category`. A project with a `screenshot` (light and dark WebP files in `public/projects/`, 1440×900) is also shown large in the Featured list above the tabs. A project split into a frontend and an API repository sets `apiRepoUrl` as well as `repoUrl`, and then gets a Frontend and an API code link instead of one Code link.
 
 ## Intro and cursor
 

@@ -20,12 +20,19 @@ type Filter = "all" | Project["category"];
 const FILTERS: Filter[] = ["all", "frontend", "fullstack", "ai", "mobile"];
 
 /**
- * Live demo first (what most visitors want), then the code, styled as one pair wherever a
- * project is shown. The project name is in each link's aria-label rather than in hidden text
- * inside the button, which would add flex gap.
+ * Live demo first (what most visitors want), then the code, styled as one group wherever a
+ * project is shown. A project with separate frontend and API repositories gets a code link for
+ * each. The project name is in each link's aria-label rather than in hidden text inside the
+ * button, which would add flex gap.
  */
 function ProjectLinks({ project, size }: { project: Project; size?: "sm" }) {
   const { t } = useLanguage();
+  const codeLinks = project.apiRepoUrl
+    ? [
+        { href: project.repoUrl, label: t.projectLinks.frontend },
+        { href: project.apiRepoUrl, label: t.projectLinks.api },
+      ]
+    : [{ href: project.repoUrl, label: t.projectLinks.code }];
 
   return (
     <>
@@ -42,12 +49,23 @@ function ProjectLinks({ project, size }: { project: Project; size?: "sm" }) {
           </a>
         </SmoothButton>
       )}
-      <SmoothButton asChild size={size} variant="outline">
-        <a aria-label={`${t.projectLinks.code}: ${project.title}`} href={project.repoUrl} rel="noreferrer" target="_blank">
-          <GithubIcon size={16} />
-          {t.projectLinks.code}
-        </a>
-      </SmoothButton>
+      {codeLinks.map((link) => (
+        <SmoothButton asChild key={link.href} size={size} variant="outline">
+          <a
+            aria-label={
+              project.apiRepoUrl
+                ? `${t.projectLinks.code}, ${link.label}: ${project.title}`
+                : `${t.projectLinks.code}: ${project.title}`
+            }
+            href={link.href}
+            rel="noreferrer"
+            target="_blank"
+          >
+            <GithubIcon size={16} />
+            {link.label}
+          </a>
+        </SmoothButton>
+      ))}
     </>
   );
 }

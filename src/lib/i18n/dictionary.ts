@@ -68,6 +68,9 @@ export interface Dictionary {
   projectLinks: {
     code: string;
     demo: string;
+    /** Labels for the two code links of a project with separate frontend and API repositories. */
+    frontend: string;
+    api: string;
   };
   experienceTitle: string;
   jobs: Job[];
@@ -175,6 +178,8 @@ const en: Dictionary = {
   projectLinks: {
     code: "Code",
     demo: "Live demo",
+    frontend: "Frontend",
+    api: "API",
   },
   experienceTitle: "Experience",
   jobs: [
@@ -329,6 +334,8 @@ const da: Dictionary = {
   projectLinks: {
     code: "Kode",
     demo: "Live demo",
+    frontend: "Frontend",
+    api: "API",
   },
   experienceTitle: "Erfaring",
   jobs: [
