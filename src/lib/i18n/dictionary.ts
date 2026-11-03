@@ -33,7 +33,6 @@ export interface Dictionary {
   };
   name: string;
   role: string;
-  email: string;
   github: string;
   linkedin: string;
   nav: {
@@ -83,6 +82,8 @@ export interface Dictionary {
     emailCta: string;
     emailVia: string;
     emailApp: string;
+    /** Button that reveals the address, which isn't in the page until clicked (src/lib/email.ts). */
+    showEmail: string;
   };
   ui: {
     menu: string;
@@ -102,7 +103,6 @@ const en: Dictionary = {
   },
   name: "Martinus Mortensen",
   role: "Software Developer",
-  email: "Martinus.mortensen@gmail.com",
   github: "github.com/Mart6110",
   linkedin: "linkedin.com/in/martinus-mortensen",
   nav: {
@@ -151,12 +151,13 @@ const en: Dictionary = {
         "HTML",
         "CSS (SCSS)",
         "CapacitorJS",
+        "Flutter",
         "AntD",
         "Chakra UI",
         "Vitest",
       ],
     },
-    { label: "Backend", items: ["Go (Golang)", "C#"] },
+    { label: "Backend", items: ["Go (Golang)", "C#", "Python"] },
     { label: "Databases", items: ["PostgreSQL", "MySQL"] },
     { label: "Tools", items: ["Git", "GitHub"] },
     {
@@ -187,13 +188,13 @@ const en: Dictionary = {
   jobs: [
     {
       company: "Inuatek A/S",
-      role: "Software Developer — Apprenticeship",
+      role: "Software Developer",
       period: "May 2022 – June 2026",
       location: "Diplomvej 381, 2800 Kongens Lyngby",
       bullets: [
         "Developed full-stack solutions using React, Go, and PostgreSQL",
         "Contributed to the design and further development of Data Collection Cloud (DCC), Inuatek's industrial IoT platform for real-time collection and visualization of machine data for OEMs and factory owners",
-        "Built dashboards, widgets, and user interfaces for Data Collection Cloud (DCC)",
+        "Built dashboards, widgets, and user interfaces for complex systems",
         "Worked with complex data structures and user flows",
         "Implemented new features with a focus on usability and structure",
         "Used Git for version control and team collaboration",
@@ -216,11 +217,15 @@ const en: Dictionary = {
     {
       school: "ZBC – Zealand Business College",
       program: "Data Technician, Specialized in Programming",
-      period: "August 2021 – June 2026",
+      period: "August 2021 – May 2026",
       location: "Ahorn Alle 5, 4100 Ringsted",
       bullets: [
-        "Focus on software development, databases, and system design",
-        "Experience with modern technologies and development methods",
+        "Built native apps in Flutter, desktop GUIs in WPF, and web solutions in ASP.NET and Blazor, with accompanying database programming",
+        "Built and tested frontend in Angular (client-side) and backend (server-side), including object-oriented programming and programming methodology",
+        "Set up and administered servers and networks, including server technology, server administration and security, and Linux for server and embedded use",
+        "Worked hands-on with IoT and embedded systems, as well as Big Data models and a machine learning project in Python",
+        "Ran systems development projects from requirements specification through testing and security, with a focus on project management and process improvement",
+        "Completed the program with an independent final examination project in programming",
       ],
     },
     {
@@ -240,6 +245,7 @@ const en: Dictionary = {
     emailCta: "Send me an email",
     emailVia: "Write with",
     emailApp: "Your mail app",
+    showEmail: "Show email",
   },
   ui: {
     menu: "Menu",
@@ -259,7 +265,6 @@ const da: Dictionary = {
   },
   name: "Martinus Mortensen",
   role: "Softwareudvikler",
-  email: "Martinus.mortensen@gmail.com",
   github: "github.com/Mart6110",
   linkedin: "linkedin.com/in/martinus-mortensen",
   nav: {
@@ -308,12 +313,13 @@ const da: Dictionary = {
         "HTML",
         "CSS (SCSS)",
         "CapacitorJS",
+        "Flutter",
         "AntD",
         "Chakra UI",
         "Vitest",
       ],
     },
-    { label: "Backend", items: ["Go (Golang)", "C#"] },
+    { label: "Backend", items: ["Go (Golang)", "C#", "Python"] },
     { label: "Databaser", items: ["PostgreSQL", "MySQL"] },
     { label: "Værktøjer", items: ["Git", "GitHub"] },
     {
@@ -373,11 +379,15 @@ const da: Dictionary = {
     {
       school: "ZBC – Zealand Business College",
       program: "Datatekniker med speciale i programmering",
-      period: "August 2021 – Juni 2026",
+      period: "August 2021 – Maj 2026",
       location: "Ahorn Alle 5, 4100 Ringsted",
       bullets: [
-        "Fokus på softwareudvikling, databaser og systemdesign",
-        "Erfaring med moderne teknologier og udviklingsmetoder",
+        "Udviklet native apps i Flutter samt skrivebords-GUI'er i WPF og webløsninger i ASP.NET og Blazor, med tilhørende databaseprogrammering",
+        "Bygget og testet frontend i Angular (clientside) og backend (serverside), herunder objektorienteret programmering og programmeringsmetodik",
+        "Opsat og administreret servere og netværk, herunder serverteknologi, serveradministration og sikkerhed samt Linux til server- og embedded-formål",
+        "Arbejdet praktisk med IoT og embeddede systemer samt Big Data-modeller og et Machine Learning-projekt i Python",
+        "Gennemført systemudviklingsprojekter fra kravspecifikation til test og sikkerhed, med fokus på projektstyring og procesforbedring",
+        "Afsluttet uddannelsen med et selvstændigt eksamensprojekt inden for programmering",
       ],
     },
     {
@@ -397,6 +407,7 @@ const da: Dictionary = {
     emailCta: "Send mig en mail",
     emailVia: "Skriv med",
     emailApp: "Dit mailprogram",
+    showEmail: "Vis e-mail",
   },
   ui: {
     menu: "Menu",

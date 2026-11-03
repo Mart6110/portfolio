@@ -7,8 +7,10 @@ import ParallaxLayers from "@/components/smoothui/parallax-layers";
 import PixelFlowField from "@/components/smoothui/pixel-flow-field";
 import SmoothButton from "@/components/smoothui/smooth-button";
 import SoftBlurIn from "@/components/smoothui/soft-blur-in";
+import { useEmailReveal } from "@/lib/email";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { useTheme } from "@/lib/theme/ThemeContext";
+import { cn } from "@/lib/utils";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import Reveal from "./Reveal";
 
@@ -80,11 +82,15 @@ export default function HeroSection({ ready }: { ready: boolean }) {
   const { t, locale } = useLanguage();
   const { theme } = useTheme();
 
+  // The address isn't in the page until someone clicks "Show email" (see src/lib/email.ts).
+  const { email, linkRef, revealAndFocus } = useEmailReveal();
+
   const contactLinks = [
-    { icon: <MailIcon className="size-4" />, label: t.email, href: `mailto:${t.email}`, external: false },
-    { icon: <GithubIcon size={16} />, label: t.github, href: `https://${t.github}`, external: true },
-    { icon: <LinkedinIcon size={16} />, label: t.linkedin, href: `https://${t.linkedin}`, external: true },
+    { icon: <GithubIcon size={16} />, label: t.github, href: `https://${t.github}` },
+    { icon: <LinkedinIcon size={16} />, label: t.linkedin, href: `https://${t.linkedin}` },
   ];
+  const contactItemClass =
+    "flex items-center gap-2 rounded-sm outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring";
 
   return (
     <section id="hero" className="relative flex min-h-dvh items-center overflow-hidden px-4 pt-28 pb-16 sm:px-6">
@@ -123,14 +129,22 @@ export default function HeroSection({ ready }: { ready: boolean }) {
             </div>
 
             <ul className="mt-12 flex flex-wrap gap-x-7 gap-y-3 text-muted-foreground text-sm">
+              <li aria-live="polite">
+                {email ? (
+                  <a className={contactItemClass} href={`mailto:${email}`} ref={linkRef}>
+                    <MailIcon className="size-4" />
+                    {email}
+                  </a>
+                ) : (
+                  <button className={cn(contactItemClass, "cursor-pointer")} onClick={revealAndFocus} type="button">
+                    <MailIcon className="size-4" />
+                    {t.contact.showEmail}
+                  </button>
+                )}
+              </li>
               {contactLinks.map((link) => (
                 <li key={link.href}>
-                  <a
-                    className="flex items-center gap-2 rounded-sm outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring"
-                    href={link.href}
-                    rel={link.external ? "noreferrer" : undefined}
-                    target={link.external ? "_blank" : undefined}
-                  >
+                  <a className={contactItemClass} href={link.href} rel="noreferrer" target="_blank">
                     {link.icon}
                     {link.label}
                   </a>

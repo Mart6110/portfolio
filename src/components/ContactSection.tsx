@@ -4,6 +4,7 @@ import { ChevronDownIcon, ExternalLinkIcon, MailIcon } from "lucide-react";
 import ButtonCopy from "@/components/smoothui/button-copy";
 import DropdownMenu from "@/components/smoothui/dropdown-menu";
 import SmoothButton from "@/components/smoothui/smooth-button";
+import { useEmailReveal } from "@/lib/email";
 import { useLanguage } from "@/lib/i18n/LanguageContext";
 import { GithubIcon, LinkedinIcon } from "./icons";
 import Reveal from "./Reveal";
@@ -20,22 +21,24 @@ function openInNewTab(url: string) {
 
 export default function ContactSection() {
   const { t } = useLanguage();
+  // The address is only put together on a click: by the menu, the copy button or "Show email".
+  const { email, linkRef, reveal, revealAndFocus } = useEmailReveal();
 
   const emailOptions = [
     { key: "via", label: t.contact.emailVia, groupLabel: t.contact.emailVia },
-    { key: "gmail", label: "Gmail", icon: <ExternalLinkIcon />, onSelect: () => openInNewTab(gmailComposeUrl(t.email)) },
+    { key: "gmail", label: "Gmail", icon: <ExternalLinkIcon />, onSelect: () => openInNewTab(gmailComposeUrl(reveal())) },
     {
       key: "outlook",
       label: "Outlook",
       icon: <ExternalLinkIcon />,
-      onSelect: () => openInNewTab(outlookComposeUrl(t.email)),
+      onSelect: () => openInNewTab(outlookComposeUrl(reveal())),
     },
     {
       key: "app",
       label: t.contact.emailApp,
       icon: <MailIcon />,
       onSelect: () => {
-        window.location.href = `mailto:${t.email}`;
+        window.location.href = `mailto:${reveal()}`;
       },
     },
   ];
@@ -68,9 +71,27 @@ export default function ContactSection() {
                 <ChevronDownIcon />
               </SmoothButton>
             </DropdownMenu>
-            <ButtonCopy onCopy={() => navigator.clipboard.writeText(t.email)} />
+            <ButtonCopy onCopy={() => navigator.clipboard.writeText(reveal())} />
           </div>
-          <p className="mt-4 font-mono text-muted-foreground text-sm">{t.email}</p>
+          <p aria-live="polite" className="mt-4 font-mono text-muted-foreground text-sm">
+            {email ? (
+              <a
+                className="rounded-sm outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring"
+                href={`mailto:${email}`}
+                ref={linkRef}
+              >
+                {email}
+              </a>
+            ) : (
+              <button
+                className="cursor-pointer rounded-sm underline decoration-dotted underline-offset-4 outline-none transition-colors hover:text-brand-strong focus-visible:ring-2 focus-visible:ring-ring"
+                onClick={revealAndFocus}
+                type="button"
+              >
+                {t.contact.showEmail}
+              </button>
+            )}
+          </p>
 
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             <SmoothButton asChild shape="pill" variant="outline">
