@@ -3,7 +3,7 @@ export interface Project {
   title: string;
   description: { en: string; da: string };
   tech: string[];
-  category: "fullstack" | "frontend" | "ai" | "mobile";
+  category: "fullstack" | "frontend" | "backend" | "ai" | "mobile";
   repoUrl: string;
   /** For projects split into two repositories: repoUrl is then the frontend, this the backend. */
   apiRepoUrl?: string;
@@ -19,6 +19,17 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "price-tracker",
+    title: "PriceTracker",
+    description: {
+      en: "A self-hosted Discord bot that watches product prices and pings you when they drop. Track a product with a slash command and an optional target price; a background worker re-checks it on a schedule and keeps the price history in PostgreSQL. A generic scraper reads schema.org data, meta tags and microdata, so most web shops work without site-specific code.",
+      da: "En selvhostet Discord-bot, der holder øje med produktpriser og giver besked, når de falder. Følg et produkt med en slash-kommando og en valgfri målpris; en baggrundsproces tjekker prisen med faste mellemrum og gemmer prishistorikken i PostgreSQL. En generisk scraper læser schema.org-data, meta-tags og microdata, så de fleste webshops virker uden kode til den enkelte side.",
+    },
+    tech: ["C#", ".NET", "ASP.NET Core", "Entity Framework Core", "PostgreSQL", "Discord.Net", "Docker"],
+    category: "backend",
+    repoUrl: "https://github.com/Mart6110/PriceTracker",
+  },
   {
     slug: "tally",
     title: "Tally",

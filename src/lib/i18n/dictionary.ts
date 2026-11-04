@@ -62,6 +62,7 @@ export interface Dictionary {
     all: string;
     fullstack: string;
     frontend: string;
+    backend: string;
     ai: string;
     mobile: string;
   };
@@ -175,6 +176,7 @@ const en: Dictionary = {
     all: "All",
     fullstack: "Full-Stack",
     frontend: "Frontend",
+    backend: "Backend",
     ai: "AI",
     mobile: "Mobile",
   },
@@ -337,6 +339,7 @@ const da: Dictionary = {
     all: "Alle",
     fullstack: "Fullstack",
     frontend: "Frontend",
+    backend: "Backend",
     ai: "AI",
     mobile: "Mobil",
   },
